@@ -27,6 +27,8 @@ int GetInt(int * number)
 void Help()
 {
 	puts("Usage:");
+	puts("1 - Create tree/add some info into the tree created\n2 - Print the whole tree\n3 - Shows how much tree nodes on selected level\n0 - Exit");
+
 }
 
 void FillTree(tree * tr)
@@ -121,7 +123,15 @@ int CountNodesMethod(tree * root, int N)
    return CountNodesMethod(root->left, N - 1) + CountNodesMethod(root->right, N - 1);
 }
 
-
+void TreeDel(tree *w)
+	{
+		if (!w) 
+			return;
+		TreeDel(w->left);
+		TreeDel(w->right);		
+		free(w);
+		w = NULL;
+	}
 
 void CountNodes(tree * tr)
 {
@@ -185,6 +195,7 @@ int main(int argc, char * argv[])
 			CountNodes(root);
 			break;
 			case 0:
+			TreeDel(root);
 			return EXIT_SUCCESS;
 			default:
 			puts("Input error. Try again");
